@@ -22,6 +22,11 @@ export default class SkillRepository extends Skill {
     });
   }
 
+
+  static async getSkills(): Promise<Skill[]> {
+    return this.repository.find();
+  }
+
   static async getSkillByName(name: string): Promise<Skill | null> {
     return this.repository.findOneBy({ skillName: name });
   }

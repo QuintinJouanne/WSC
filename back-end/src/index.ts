@@ -1,6 +1,7 @@
 import express from "express";
 
 import * as wildersControllers from "./controllers/wilders";
+import * as skillsControllers from "./controllers/skills";
 import School from "./models/School/School.repository";
 import Skill from "./models/Skill/Skill.repository";
 import Wilder from "./models/Wilder/Wilder.repository";
@@ -12,12 +13,19 @@ app.get("/", function (req, res) {
   res.send("Hello world from Express!");
 });
 
+
+
+
 const WILDERS_PATH = "/wilders";
 app.get(WILDERS_PATH, wildersControllers.get);
 app.post(WILDERS_PATH, wildersControllers.post);
 app.put(`${WILDERS_PATH}/:id`, wildersControllers.put);
 app.delete(`${WILDERS_PATH}/:id`, wildersControllers.del);
 app.post(`${WILDERS_PATH}/:id/skills`, wildersControllers.addSkill);
+
+const SKILLS_PATH = "/skills";
+app.get(SKILLS_PATH, skillsControllers.get);
+// app.post(SKILLS_PATH, skillsControllers.post);
 
 const PORT = 4000;
 

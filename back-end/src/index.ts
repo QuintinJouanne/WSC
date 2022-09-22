@@ -25,7 +25,7 @@ app.post(`${WILDERS_PATH}/:id/skills`, wildersControllers.addSkill);
 
 const SKILLS_PATH = "/skills";
 app.get(SKILLS_PATH, skillsControllers.get);
-// app.post(SKILLS_PATH, skillsControllers.post);
+app.post(SKILLS_PATH, skillsControllers.post);
 
 const PORT = 4000;
 

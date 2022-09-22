@@ -7,5 +7,15 @@ const get = async (req: Request, res: Response): Promise<void> => {
   res.json(skills);
 };
 
+const post = async (req: Request, res: Response): Promise<void> => {
+  const { skillName } = req.body;
+  if (!skillName) {
+    res.status(400).json({ error: "Skillname is mandatory." });
+  } else {
+    const newSkill = await SkillRepository.createSkill(skillName);
+    res.status(201).json(newSkill);
+  }
+};
 
-export { get };
+
+export { get,post };

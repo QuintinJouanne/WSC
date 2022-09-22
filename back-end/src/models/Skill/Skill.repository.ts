@@ -27,6 +27,15 @@ export default class SkillRepository extends Skill {
     return this.repository.find();
   }
 
+
+  static async createSkill(
+    skillName: string,
+  ): Promise<Skill> {
+    const newSkill = this.repository.create({ skillName });
+    await this.repository.save(newSkill);
+    return newSkill;
+  }
+
   static async getSkillByName(name: string): Promise<Skill | null> {
     return this.repository.findOneBy({ skillName: name });
   }

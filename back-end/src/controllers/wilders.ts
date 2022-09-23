@@ -1,6 +1,7 @@
-import { Request, Response } from "express";
-import { getErrorMessage } from "../utils";
-import WilderRepository from "../models/Wilder/Wilder.repository";
+import WilderRepository from '../models/Wilder/Wilder.repository';
+import { Request, Response } from 'express';
+import { getErrorMessage } from '../utils';
+import Wilder from '../models/Wilder/Wilder.entity';
 
 const get = async (req: Request, res: Response): Promise<void> => {
   const wilders = await WilderRepository.getWilders();
@@ -8,11 +9,18 @@ const get = async (req: Request, res: Response): Promise<void> => {
 };
 
 const post = async (req: Request, res: Response): Promise<void> => {
-  const { firstName, lastName } = req.body;
-  if (!firstName || !lastName) {
-    res.status(400).json({ error: "First name and last name are mandatory." });
+  const { firstName, lastName, schoolName, skillsNames } = req.body;
+  if (!firstName || !lastName || !lastName || !skillsNames === null) {
+    console.error(req.body);
+    res.status(400).json({ error: 'First name and last name are mandatory.' });
   } else {
-    const newWilder = await WilderRepository.createWilder(firstName, lastName);
+    console.log({ skillsNames: skillsNames });
+    const newWilder = await WilderRepository.createWilder(
+      firstName,
+      lastName,
+      schoolName,
+      skillsNames
+    );
     res.status(201).json(newWilder);
   }
 };
@@ -22,7 +30,9 @@ const put = async (req: Request, res: Response): Promise<void> => {
   const { firstName, lastName } = req.body;
 
   if (!firstName || !lastName) {
-    res.status(400).json({ error: "First name and last name are mandatory." });
+    res
+      .status(400)
+      .json({ error: 'ID, first name and last name are mandatory.' });
   } else {
     try {
       const updatedWilder = await WilderRepository.updateWilder(
@@ -53,7 +63,7 @@ const addSkill = async (req: Request, res: Response): Promise<void> => {
   const { skillId } = req.body;
 
   if (!skillId) {
-    res.status(400).json({ error: "Skill ID is mandatory." });
+    res.status(400).json({ error: 'Skill ID is mandatory.' });
   } else {
     try {
       const updatedWilder = await WilderRepository.addSkillToWilder(

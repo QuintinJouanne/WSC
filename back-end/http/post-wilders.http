@@ -3,5 +3,10 @@ Content-Type: application/json
 
 {
     "firstName": "Félix",
-    "lastName": "Berger"
+    "lastName": "Berger",
+    "skills": [
+      {
+        "skillName": "Javascript"
+      }
+    ]
 }

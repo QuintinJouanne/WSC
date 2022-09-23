@@ -1,6 +1,6 @@
-import { Repository } from "typeorm";
-import { getRepository } from "../../database/utils";
-import Skill from "./Skill.entity";
+import { Repository } from 'typeorm';
+import Skill from './Skill.entity';
+import { getRepository } from '../../database/utils';
 
 export default class SkillRepository extends Skill {
   private static repository: Repository<Skill>;
@@ -15,25 +15,23 @@ export default class SkillRepository extends Skill {
   static async initializeSkills() {
     this.clearRepository();
     await this.repository.save({
-      skillName: "PHP",
+      skillName: 'PHP',
     });
     await this.repository.save({
-      skillName: "JavaScript",
+      skillName: 'JavaScript',
     });
-  }
-
-
-  static async getSkills(): Promise<Skill[]> {
-    return this.repository.find();
-  }
-
-
-  static async createSkill(
-    skillName: string,
-  ): Promise<Skill> {
-    const newSkill = this.repository.create({ skillName });
-    await this.repository.save(newSkill);
-    return newSkill;
+    await this.repository.save({
+      skillName: 'Python',
+    });
+    await this.repository.save({
+      skillName: 'CSS',
+    });
+    await this.repository.save({
+      skillName: 'HTML',
+    });
+    await this.repository.save({
+      skillName: 'SQL',
+    });
   }
 
   static async getSkillByName(name: string): Promise<Skill | null> {

@@ -1,23 +1,26 @@
-import { getErrorMessage } from "../utils";
+import { getErrorMessage } from '../utils';
 
-export const WILDERS_PATH = "/wilders";
+export const WILDERS_PATH = '/wilders';
+export const SKILLS_PATH = '/skills';
 
 export enum HTTPVerb {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  PATCH = "PATCH",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
 
-export async function query(url: string, 
-  method: HTTPVerb, 
-  body?: Record<string, unknown>) {
+export async function query(
+  url: string,
+  method: HTTPVerb,
+  body?: Record<string, unknown>
+) {
   let httpStatusError = false;
   try {
     const response = await fetch(url, {
       method,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       ...(body && { body: JSON.stringify(body) }),
     });
     const message = await response.json();
@@ -31,7 +34,7 @@ export async function query(url: string,
       throw Error(getErrorMessage(error));
     }
     throw Error(
-      "Impossible de joindre le serveur. Vérifiez votre connexion à Internet."
+      'Impossible de joindre le serveur. Vérifiez votre connexion à Internet.'
     );
   }
 }

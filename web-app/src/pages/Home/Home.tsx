@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { CardRow } from "./Home.styled";
-import Wilder from "../../components/Wilder/Wilder";
-import Loader from "../../components/Loader";
-import { SectionTitle } from "../../styles/base-styles";
-import { CREATE_WILDER_PATH } from "../paths";
-import { fetchWilders, WilderType } from "./rest";
-import React from "react";
-import { getErrorMessage } from "../../utils";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { CardRow } from './Home.styled';
+import Wilder from '../../components/Wilder/Wilder';
+import Loader from '../../components/Loader';
+import { SectionTitle } from '../../styles/base-styles';
+import { CREATE_WILDER_PATH } from '../paths';
+import { fetchWilders, WilderType } from './rest';
+import { getErrorMessage } from '../../utils';
 
 const Home = () => {
   const [wilders, setWilders] = useState<null | WilderType[]>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -35,7 +34,7 @@ const Home = () => {
       return errorMessage;
     }
     if (!wilders?.length) {
-      return "Aucun wilder à afficher.";
+      return 'Aucun wilder à afficher.';
     }
     return (
       <CardRow>

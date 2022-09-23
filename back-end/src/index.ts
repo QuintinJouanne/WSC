@@ -1,42 +1,43 @@
-import express from "express";
-
-import * as wildersControllers from "./controllers/wilders";
-import * as skillsControllers from "./controllers/skills";
-import School from "./models/School/School.repository";
-import Skill from "./models/Skill/Skill.repository";
-import Wilder from "./models/Wilder/Wilder.repository";
+import express from 'express';
+import * as wildersControllers from './controllers/wilders';
+import * as schoolsControllers from './controllers/school';
+import SchoolRepository from './models/School/School.repository';
+import SkillRepository from './models/Skill/Skill.repository';
+import WilderRepository from './models/Wilder/Wilder.repository';
 
 const app = express();
+const PORT = 4000;
+const WILDERS_PATH = '/wilders';
+const SCHOOLS_PATH = '/schools';
+
 app.use(express.json());
 
-app.get("/", function (req, res) {
-  res.send("Hello world from Express!");
+app.get('/', function (req, res) {
+  res.send('Hello world from Express!');
 });
 
+// Wilders Routes
 
-
-
-const WILDERS_PATH = "/wilders";
 app.get(WILDERS_PATH, wildersControllers.get);
 app.post(WILDERS_PATH, wildersControllers.post);
 app.put(`${WILDERS_PATH}/:id`, wildersControllers.put);
 app.delete(`${WILDERS_PATH}/:id`, wildersControllers.del);
 app.post(`${WILDERS_PATH}/:id/skills`, wildersControllers.addSkill);
 
-const SKILLS_PATH = "/skills";
-app.get(SKILLS_PATH, skillsControllers.get);
-app.post(SKILLS_PATH, skillsControllers.post);
+// Schools Routes
 
-const PORT = 4000;
+app.get(SCHOOLS_PATH, schoolsControllers.get);
+app.post(SCHOOLS_PATH, schoolsControllers.post);
+app.delete(`${SCHOOLS_PATH}/:id`, schoolsControllers.del);
 
 async function start() {
-  await Skill.initializeRepository();
-  await School.initializeRepository();
-  await Wilder.initializeRepository();
+  await SkillRepository.initializeRepository();
+  await SchoolRepository.initializeRepository();
+  await WilderRepository.initializeRepository();
 
-  await Skill.initializeSkills();
-  await School.initializeSchools();
-  await Wilder.initializeWilders();
+  await SkillRepository.initializeSkills();
+  await SchoolRepository.initializeSchools();
+  await WilderRepository.initializeWilders();
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} 👍`);
   });
